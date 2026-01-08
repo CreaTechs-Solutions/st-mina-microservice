@@ -7,7 +7,7 @@ export class AppController {
 
   @Get('availability')
   async getAvailability(
-    @Query('startDate', new ParseDatePipe()) startDate: Date,
+    @Query('startDate') startDate: Date,
     @Query('endDate') endDate: string,
   ) {
     try {

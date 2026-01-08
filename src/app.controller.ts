@@ -1,13 +1,9 @@
 import { Controller, Get, Query } from '@nestjs/common';
 import { AppService } from './app.service';
-import { AppModule } from './app.module';
 
 @Controller()
 export class AppController {
-  constructor(
-    private readonly appService: AppService,
-    private appModule: AppModule,
-  ) {}
+  constructor(private readonly appService: AppService) {}
 
   @Get('availability')
   async getAvailability(
@@ -15,7 +11,7 @@ export class AppController {
     @Query('endDate') endDate: string,
   ) {
     try {
-      const response = await this.appModule.fetchAvailability(
+      const response = await this.appService.fetchAvailability(
         new Date(startDate),
         endDate ? new Date(endDate) : undefined,
       );

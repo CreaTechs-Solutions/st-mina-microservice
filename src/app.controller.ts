@@ -1,4 +1,4 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Controller, Get, ParseDatePipe, Query } from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller()
@@ -7,7 +7,7 @@ export class AppController {
 
   @Get('availability')
   async getAvailability(
-    @Query('startDate') startDate: string,
+    @Query('startDate', new ParseDatePipe()) startDate: Date,
     @Query('endDate') endDate: string,
   ) {
     try {

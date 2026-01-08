@@ -26,7 +26,14 @@ export class AppService {
     } else {
       const sevenDaysLater = new Date(startDate);
       sevenDaysLater.setDate(sevenDaysLater.getDate() + 7);
-      query.set('endDate', sevenDaysLater.getDate().toString());
+
+      console.log(
+        'Final startDate and endDate ' +
+          startDate.toISOString() +
+          ' - ' +
+          sevenDaysLater.toISOString(),
+      );
+      query.set('endDate', sevenDaysLater.getTime().toString());
     }
 
     query.set('timezone', 'America/Chicago');
@@ -43,6 +50,7 @@ export class AppService {
         Version: '2021-04-15',
       },
     });
+    console.log('Availability response data:', response.data);
     return response.data;
   }
 }

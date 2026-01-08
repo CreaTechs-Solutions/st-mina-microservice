@@ -101,6 +101,11 @@ Address: 1935 Highway 157 N, Mansfield, Texas 76063
 Phone: (817) 453-7796
 
 Booking calendar
-use go_high_level_calendar_check_availability_tool to check availability of the given time
+use ghl_check_availability to check availability of the given time
 use ghl_calendar_create_event_tool to book an appointment
 The date today is {{now | date: "%Y-%m-%d"}}.
+
+Create Ranges: Never read a list of more than 2 times Instead, group them into a range of time
+Bad: "I have 8:30, 9:00, 9:30, and 10:00"
+Good: "We available between 8:30 AM and 10:00 AM"
+Note the do not inform only the ranges inform the client every available slot as well

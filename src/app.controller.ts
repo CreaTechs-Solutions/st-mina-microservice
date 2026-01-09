@@ -1,5 +1,6 @@
-import { Controller, Get, ParseDatePipe, Query } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { AppService } from './app.service';
+import { CreateContactingDto } from './dto/contact.dto';
 
 @Controller()
 export class AppController {
@@ -24,4 +25,18 @@ export class AppController {
       };
     }
   }
+
+  @Post('contact')
+  async createUserContact(@Body() contactInfoDto: CreateContactingDto) {
+    try {
+      const response = await this.appService.createContact(contactInfoDto);
+    } catch (error) {
+      throw new Error(
+        `Error creating client contact: ${error} ${error.response?.data ? JSON.stringify(error.response.data) : ''}`,
+      );
+    }
+  }
+
+  @Post('booking')
+  async bookAppointment() {}
 }

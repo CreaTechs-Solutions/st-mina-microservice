@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { HttpService } from '@nestjs/axios';
+import { CreateContactingDto } from './dto/contact.dto';
+import { CreateBookingDto } from './dto/booking.dto';
 type Calendar = {
   id: string;
   name: string;
@@ -52,5 +54,38 @@ export class AppService {
     });
     console.log('Availability response data:', response.data);
     return response.data;
+  }
+
+  async createContact({
+    firstName,
+    lastName,
+    phone,
+  }: CreateContactingDto) {
+    const url = new URL(`https://services.leadconnectorhq.com/contacts/`);
+
+    const response = await this.httpService.axiosRef.post(
+      url.toString(),
+      {
+        firstName,
+        lastName,
+        phone,
+        locationId: 'cQ0Nm1Fhri47AMc7UFWY',
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${this.ghlToken}`,
+          Version: '2021-04-15',
+        },
+      },
+    );
+
+    return response.data;
+  }
+
+  async bookAppointment({ startDate, title, notes, calendarId, customerId }) {
+    const url = new URL(
+      `https://services.leadconnectorhq.com/calendars/events/appointments`,
+    );
+    // const response = this.httpService.axiosRef.post();
   }
 }

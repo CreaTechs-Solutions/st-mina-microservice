@@ -30,6 +30,12 @@ export class AppController {
   async createUserContact(@Body() contactInfoDto: CreateContactingDto) {
     try {
       const response = await this.appService.createContact(contactInfoDto);
+      console.log('Contact creation response:', response);
+      return {
+        message: 'Contact created successfully',
+        contactId: response.contact.id,
+        name: contactInfoDto.firstName + ' ' + contactInfoDto.lastName,
+      };
     } catch (error) {
       throw new Error(
         `Error creating client contact: ${error} ${error.response?.data ? JSON.stringify(error.response.data) : ''}`,

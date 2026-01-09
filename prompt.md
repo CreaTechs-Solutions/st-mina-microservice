@@ -108,6 +108,8 @@ Bad example: "I have 8:30, 9:00, 9:30, and 10:00"
 Good example: "We available between 8:30 AM and 10:00 AM"
 Note inform the client of the first three days you get from the response
 
+use ghl_create_contact to create contact before you book an appointment
+
 use ghl_calendar_create_event_tool to book an appointment
 
 The date today is {{now | date: "%m-%d-%Y"}}.

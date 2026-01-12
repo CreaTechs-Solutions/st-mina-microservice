@@ -27,7 +27,7 @@ export class AppService {
       query.set('endDate', endDate.getTime().toString());
     } else {
       const sevenDaysLater = new Date(startDate);
-      sevenDaysLater.setDate(sevenDaysLater.getDate() + 7);
+      sevenDaysLater.setDate(sevenDaysLater.getDate() + 2);
 
       console.log(
         'Final startDate and endDate ' +

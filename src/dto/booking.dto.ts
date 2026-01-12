@@ -1,16 +1,27 @@
 import { Transform } from 'class-transformer';
+import { IsNotEmpty, MinLength } from 'class-validator';
 
 export class CreateBookingDto {
   @Transform(
-    ({ value }: { value: string | number }) => {
-      if (typeof value === 'number') new Date(value);
+    ({ value }: { value: string | number | Date }) => {
+      if (value instanceof Date) return value;
+      if (typeof value === 'number') return new Date(value);
       if (typeof value === 'string') {
         const parsed = Date.parse(value);
         if (!isNaN(parsed)) return new Date(parsed);
       }
-      throw new Error('Invalid Date formate');
+      throw new Error('Invalid Date format');
     },
     { toClassOnly: true },
   )
-  startDate: string;
+  startDate: Date;
+
+  @IsNotEmpty()
+  @MinLength(2)
+  title: string;
+
+  notes: string;
+
+  @IsNotEmpty()
+  contactId: string;
 }

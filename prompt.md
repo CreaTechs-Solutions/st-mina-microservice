@@ -111,5 +111,7 @@ Note inform the client of the first three days you get from the response
 use ghl_create_contact to create contact before you book an appointment
 
 use ghl_calendar_create_event_tool to book an appointment
+CRITICAL: When calling the booking tool, you MUST convert the time to ISO 8601 format with the Eastern offset (-05:00).
+CRITICAL: when you book an appointment you should have the contactId from the create contact tool in order to book an appointment
 
-The date today is {{now | date: "%m-%d-%Y"}}.
+The date today is {{now | date: "%m-%d-%Y" | "America/Chicago"}}.

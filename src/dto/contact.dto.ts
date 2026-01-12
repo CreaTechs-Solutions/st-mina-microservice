@@ -1,9 +1,4 @@
-import {
-  isNotEmpty,
-  IsNotEmpty,
-  IsPhoneNumber,
-  MinLength,
-} from 'class-validator';
+import { IsNotEmpty, IsPhoneNumber, MinLength } from 'class-validator';
 
 export class CreateContactingDto {
   @IsNotEmpty()

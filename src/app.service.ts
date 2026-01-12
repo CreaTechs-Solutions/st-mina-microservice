@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { HttpService } from '@nestjs/axios';
-import { CreateContactingDto } from './dto/contact.dto';
-import { CreateBookingDto } from './dto/booking.dto';
+import * as dto from './dto/index';
+import { time } from 'console';
 type Calendar = {
   id: string;
   name: string;
@@ -56,11 +56,7 @@ export class AppService {
     return response.data;
   }
 
-  async createContact({
-    firstName,
-    lastName,
-    phone,
-  }: CreateContactingDto) {
+  async createContact({ firstName, lastName, phone }: dto.CreateContactingDto) {
     const url = new URL(`https://services.leadconnectorhq.com/contacts/`);
 
     const response = await this.httpService.axiosRef.post(
@@ -82,10 +78,38 @@ export class AppService {
     return response.data;
   }
 
-  async bookAppointment({ startDate, title, notes, calendarId, customerId }) {
+  async bookAppointment({
+    startDate,
+    title,
+    notes,
+    contactId,
+  }: dto.CreateBookingDto) {
     const url = new URL(
       `https://services.leadconnectorhq.com/calendars/events/appointments`,
     );
-    // const response = this.httpService.axiosRef.post();
+    console.log(startDate);
+    console.log(startDate.toISOString());
+
+    const response = await this.httpService.axiosRef.post(
+      url.toString(),
+      {
+        startTime: startDate.toISOString(),
+        title,
+        notes,
+        selectedTimezone: 'America/Chicago',
+        contactId: contactId,
+        calendarId: 'aUret4USDg6Ygc0jPuaj',
+        locationId: 'cQ0Nm1Fhri47AMc7UFWY',
+        internalNotes: notes,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${this.ghlToken}`,
+          Version: '2021-04-15',
+        },
+      },
+    );
+    console.log('Booking response data:', response.data);
+    return response;
   }
 }

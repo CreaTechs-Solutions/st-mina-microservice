@@ -1,6 +1,7 @@
 import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { AppService } from './app.service';
-import { CreateContactingDto } from './dto/contact.dto';
+import * as dto from './dto/index';
+import { throwError } from 'rxjs';
 
 @Controller()
 export class AppController {
@@ -27,7 +28,7 @@ export class AppController {
   }
 
   @Post('contact')
-  async createUserContact(@Body() contactInfoDto: CreateContactingDto) {
+  async createUserContact(@Body() contactInfoDto: dto.CreateContactingDto) {
     try {
       const response = await this.appService.createContact(contactInfoDto);
       console.log('Contact creation response:', response);
@@ -44,5 +45,19 @@ export class AppController {
   }
 
   @Post('booking')
-  async bookAppointment() {}
+  async bookAppointment(@Body() appointmentInfoDto: dto.CreateBookingDto) {
+    try {
+      const response =
+        await this.appService.bookAppointment(appointmentInfoDto);
+      console.log('Booking response data:', response);
+      return JSON.parse(JSON.stringify(response.data));
+    } catch (error) {
+      console.error('Booking error response:', error.response?.data || error);
+      throw new Error(
+        `Error booking appointment: ${error} ${
+          error.response?.data ? JSON.stringify(error.response.data) : ''
+        }`,
+      );
+    }
+  }
 }

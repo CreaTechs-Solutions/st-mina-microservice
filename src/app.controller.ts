@@ -38,9 +38,15 @@ export class AppController {
         name: contactInfoDto.firstName + ' ' + contactInfoDto.lastName,
       };
     } catch (error) {
-      throw new Error(
-        `Error creating client contact: ${error} ${error.response?.data ? JSON.stringify(error.response.data) : ''}`,
+      console.error(
+        'Contact creation error response:',
+        error.response?.data || error,
       );
+      return {
+        status: 'error',
+        message: error.message,
+        response: error.response?.data || error,
+      };
     }
   }
 
@@ -53,11 +59,11 @@ export class AppController {
       return JSON.parse(JSON.stringify(response.data));
     } catch (error) {
       console.error('Booking error response:', error.response?.data || error);
-      throw new Error(
-        `Error booking appointment: ${error} ${
-          error.response?.data ? JSON.stringify(error.response.data) : ''
-        }`,
-      );
+      return {
+        status: 'error',
+        message: error.message,
+        response: error.response?.data || error,
+      };
     }
   }
 }

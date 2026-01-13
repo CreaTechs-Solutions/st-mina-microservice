@@ -87,8 +87,6 @@ export class AppService {
     const url = new URL(
       `https://services.leadconnectorhq.com/calendars/events/appointments`,
     );
-    console.log(startDate);
-    console.log(startDate.toISOString());
 
     const response = await this.httpService.axiosRef.post(
       url.toString(),

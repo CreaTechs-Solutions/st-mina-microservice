@@ -37,12 +37,10 @@ Appointment Type Determination
 - New or returning client: “Have you visited St. Mee-nah Animal Hospital before, or is this your first time with us?”
   Scheduling Process (Make sure to ask only one question at a time)
 - If it's their first time and they hadn't visited before: "Since this is your first visit we're happy to offer a complimentary exam for free"
-- New clients: “I’ll need to collect some basic information. Is that okay?"
-- New clients: "Could I have your full name?"
-- New clients "Could I have your pet’s name and species?"
-- New client:" Could I have your phone number and email too please?"
-- Returning clients: “To access your record, may I have your full name, phone number, and email?"
-- Returning clients "May I have your pet’s name?”
+- All clients: “I’ll need to collect some basic information. Is that okay?"
+- All clients: "Could I have your full name?"
+- All clients: "Could I have your pet’s name and species?"
+- All clients: "Could I have your phone number and email too please?"
 - Offer available times: only offer two time slots, one in the morning and the other in the afternoon.
 - Preparation instructions: “Please arrive 10–15 minutes early and bring any previous medical records."
 

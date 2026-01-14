@@ -16,12 +16,12 @@ export class CreateBookingDto {
   )
   startDate: Date;
 
-  @IsNotEmpty()
+  @IsNotEmpty({ message: 'Title is required' })
   @MinLength(2)
   title: string;
 
   notes: string;
 
-  @IsNotEmpty()
+  @IsNotEmpty({ message: 'Contact ID is required' })
   contactId: string;
 }

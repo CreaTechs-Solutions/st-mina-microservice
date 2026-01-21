@@ -15,6 +15,13 @@ export class CreateContactingDto {
   @MinLength(2)
   lastName: string;
 
-  @IsEmail({}, { message: 'Email must be a valid email address' })
+  @IsEmail(
+    {
+      ignore_max_length: true,
+      allow_underscores: true,
+      allow_utf8_local_part: true,
+    },
+    { message: 'Email must be a valid email address' },
+  )
   email: string;
 }

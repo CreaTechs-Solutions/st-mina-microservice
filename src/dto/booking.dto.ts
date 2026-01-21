@@ -14,6 +14,7 @@ export class CreateBookingDto {
     },
     { toClassOnly: true },
   )
+  @IsNotEmpty({ message: 'Start date is required' })
   startDate: Date;
 
   @IsNotEmpty({ message: 'Title is required' })

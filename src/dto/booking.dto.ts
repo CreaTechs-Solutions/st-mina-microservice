@@ -14,14 +14,15 @@ export class CreateBookingDto {
     },
     { toClassOnly: true },
   )
+  @IsNotEmpty({ message: 'Start date is required' })
   startDate: Date;
 
-  @IsNotEmpty()
+  @IsNotEmpty({ message: 'Title is required' })
   @MinLength(2)
   title: string;
 
   notes: string;
 
-  @IsNotEmpty()
+  @IsNotEmpty({ message: 'Contact ID is required' })
   contactId: string;
 }

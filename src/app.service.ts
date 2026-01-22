@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { HttpService } from '@nestjs/axios';
 import * as dto from './dto/index';
-import { time } from 'console';
+
 type Calendar = {
   id: string;
   name: string;
@@ -11,12 +11,14 @@ type Calendar = {
 export class AppService {
   private ghlToken: string;
   private calendarId: string;
+  private locationId: string;
   constructor(
     private configService: ConfigService,
     private httpService: HttpService,
   ) {
     this.ghlToken = this.configService.get('GHL_API_TOKEN') ?? '';
     this.calendarId = this.configService.get('GHL_CALENDAR_ID') ?? '';
+    this.locationId = 'cQ0Nm1Fhri47AMc7UFWY';
   }
 
   async fetchAvailability(startDate: Date, endDate?: Date) {
@@ -53,6 +55,22 @@ export class AppService {
       },
     });
     console.log('Availability response data:', response.data);
+    return response.data;
+  }
+
+  async checkContact(phone: string) {
+    const url = new URL(`https://services.leadconnectorhq.com/contacts`);
+    const queryParam = new URLSearchParams();
+    queryParam.set('query', phone);
+    queryParam.set('locationId', this.locationId);
+    url.search = queryParam.toString();
+    const response = await this.httpService.axiosRef.get(url.toString(), {
+      headers: {
+        Authorization: `Bearer ${this.ghlToken}`,
+        Version: '2021-04-15',
+      },
+    });
+    console.log('Check contact response data:', response.data);
     return response.data;
   }
 

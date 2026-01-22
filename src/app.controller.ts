@@ -27,6 +27,35 @@ export class AppController {
     }
   }
 
+  @Get('lookup')
+  async lookupContact(@Query('phone') phone: string) {
+    try {
+      const response = await this.appService.checkContact(phone);
+
+      if (response.contacts < 1) {
+        return {
+          status: 'error',
+          message: 'No contact found',
+          action: 'Create new contact',
+        };
+      }
+      const contactId = response.contacts[0].id;
+
+      return {
+        status: 'success',
+        contactId: contactId,
+        contacts: response.contacts,
+      };
+    } catch (error) {
+      console.log(phone);
+      return {
+        status: 'error',
+        message: error.message,
+        response: error.response?.data || error,
+      };
+    }
+  }
+
   @Post('contact')
   async createUserContact(@Body() contactInfoDto: dto.CreateContactingDto) {
     try {
@@ -37,6 +66,7 @@ export class AppController {
         contactId: response.contact.id,
         name: contactInfoDto.firstName + ' ' + contactInfoDto.lastName,
         email: contactInfoDto.email,
+        status: 'success',
       };
     } catch (error) {
       console.error(

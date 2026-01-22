@@ -61,7 +61,8 @@ export class AppService {
   async checkContact(phone: string) {
     const url = new URL(`https://services.leadconnectorhq.com/contacts`);
     const queryParam = new URLSearchParams();
-    queryParam.set('query', phone);
+    const sensitizedPhone = phone.trim().replace(' ', '+');
+    queryParam.set('query', sensitizedPhone);
     queryParam.set('locationId', this.locationId);
     url.search = queryParam.toString();
     const response = await this.httpService.axiosRef.get(url.toString(), {

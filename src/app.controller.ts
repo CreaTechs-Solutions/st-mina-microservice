@@ -65,7 +65,7 @@ export class AppController {
         message: 'Contact created successfully',
         contactId: response.contact.id,
         name: contactInfoDto.firstName + ' ' + contactInfoDto.lastName,
-        email: contactInfoDto.email,
+        // email: contactInfoDto.email,
         status: 'success',
       };
     } catch (error) {
